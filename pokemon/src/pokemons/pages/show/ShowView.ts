@@ -27,7 +27,7 @@ export default defineComponent({
             pokemon.value = myTeam.value.find((pokemon) => pokemon.id === poekemonId) ?? null;
 
             if (poekemonId !== null) {
-                await getEvolutions(poekemonId);
+                pokemonEvolutions.value = await getEvolutions(poekemonId);
             }
 
 

@@ -12,14 +12,15 @@
     <p v-for="(type, indexTypes) in pokemon.types" :key="indexTypes">
       {{ type.type.name }}
     </p>
-    
-
-    <p v-for="(crie, indexCries) in pokemon.cries" :key="indexCries">
-      <audio controls>
-        <source :src="crie" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-    </p>
+    <!-- {{ pokemon.cries?.legacy }} -->
+    <audio controls>
+      <source :src="pokemon.cries?.latest" type="audio/ogg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio controls>
+      <source :src="pokemon.cries?.legacy" type="audio/ogg" />
+      Your browser does not support the audio element.
+    </audio>
 
     <DiagramBarVue :diagramData="stats" />
   </div>

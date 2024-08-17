@@ -7,20 +7,17 @@ export default defineComponent({
     setup() {
 
         //--------composable functions--------//
-        const { pokemonList, selectPokemon, myTeam } = usePokemonStore();
+        const { pokemonList, myTeam, currentPage, totalPokemons, setCurrentPage, setTotalPokemons, itemsPerPage, getAllPokemons, } = usePokemonStore();
 
         //---------Metodos o Funciones ----------//
 
         const handleSelectPokemon = (pokemonSelected: DetailListPokemon) => {
-
             //validamos que esten maximo 6 pokemons
-
             if (myTeam.value.length >= 6 && pokemonSelected.selected) {
                 alert('No puedes seleccionar mas de 6 pokemons');
+                pokemonSelected.selected = false;
                 return;
             }
-
-
             if (pokemonSelected.selected)
                 myTeam.value.push(pokemonSelected.pokemon);
             else {
@@ -30,16 +27,22 @@ export default defineComponent({
                 }
             }
 
-
-
         }
 
+        const handlePageChange = async (page: number) => {
+            setCurrentPage(page);
+            await getAllPokemons(((currentPage.value - 1) * itemsPerPage.value), itemsPerPage.value);
 
+        }
 
         return {
             myTeam,
             pokemonList,
             handleSelectPokemon,
+            handlePageChange,
+            currentPage,
+            totalPokemons,
+            itemsPerPage
         }
     }
 })

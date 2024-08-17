@@ -9,12 +9,12 @@ export default defineComponent({
     },
     setup() {
 
-        const { pokemonList, getAllPokemons } = usePokemonStore();
+        const { pokemonList, getAllPokemons, itemsPerPage, currentPage } = usePokemonStore();
 
 
         onMounted(async () => {
             if (pokemonList.value === null)
-                await getAllPokemons();
+                await getAllPokemons(currentPage.value, itemsPerPage.value);
 
 
         })

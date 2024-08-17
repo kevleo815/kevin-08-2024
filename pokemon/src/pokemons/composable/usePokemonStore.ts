@@ -11,6 +11,11 @@ export function usePokemonStore() {
     const pokemonList = computed(() => store.pokemonList);
     const myTeam = computed(() => store.myTeam);
     const evolutions = computed(() => store.evolutions);
+
+    const totalPokemons = computed(() => store.totalPokemons);
+    const currentPage = computed(() => store.currentPage);
+    const itemsPerPage = computed(() => store.itemsPerPage);
+
     //--------------------setters--------------------//
 
     const setPokemon = (data: Pokemon | null) => {
@@ -38,6 +43,19 @@ export function usePokemonStore() {
     const getPokemonList = () => {
         return store.getPokemonList();
     };
+
+    const setCurrentPage = (page: number) => {
+        store.setCurrentPage(page);
+    };
+
+    const setTotalPokemons = (total: number) => {
+        store.setTotalPokemons(total);
+    };
+
+    const setItemsPerPage = (items: number) => {
+        store.setItemsPerPage(items);
+    };
+
 
 
     //--------------------Actions--------------------//
@@ -67,11 +85,13 @@ export function usePokemonStore() {
      * @returns
      */
 
-    const getAllPokemons = async () => {
-        await store.getAllPokemons()
+    const getAllPokemons = async (offset: number = 0, itemsPerPage: number = 2) => {
+        await store.getAllPokemons(offset, itemsPerPage)
             .then(async (response) => {
+                setTotalPokemons(response.count);
                 setPokemonList(response);
                 await addPokemonList();
+
             })
             .catch((error) => {
                 console.log(error);
@@ -86,29 +106,47 @@ export function usePokemonStore() {
      * 
      */
 
-    const getEvolutions = async (id: number): Promise<void> => {
+    const getEvolutions = async (id: number): Promise<Pokemon[]> => {
         try {
-            let chain = (await store.getEvolutions(id)).chain;
-            store.setEvolutions([]);
+            let pokemons: Pokemon[] = [];
+            let urlEvolution = (await store.getPokemonSpecies(id));
 
-            let count = 1;
-           /*  while (count > 0) {
+            // de urlEvolution vamos a sacar el id de la cadena de evolucion
 
-                if (chain.evolves_to.length > 0) {
-                    chain.evolves_to.forEach(async (item) => {
-                        const pokemon = await store.getPokemonByName(item.species.name);
-                        evolutions.value.push(pokemon);
-                        chain = item;
-                    });
-                } else {
-                    count = 0;
+            let chainId = urlEvolution.replace("https://pokeapi.co/api/v2/evolution-chain/", "");
 
-                }
+            let chain = (await store.getEvolutions(chainId)).chain;
 
-            } */
+            pokemons.push(await store.getPokemonByName(chain.species.name));
 
-            /*  const pokemon = await store.getPokemonByName(resp.chain.species.name);
-            evolutions.value.push(pokemon); */
+
+            //vamos a sacar todos los evolves_to dentro de los chains
+
+            let evolves_to: Chain[] = [];
+
+            while (chain.evolves_to.length > 0) {
+                evolves_to.push(...chain.evolves_to);
+                chain = chain.evolves_to[0];
+                console.log(chain.species.name);
+            }
+
+            //vamos a sacar todos los species de los evolves_to
+
+            let species: string[] = [];
+
+            evolves_to.forEach((item) => {
+                species.push(item.species.name);
+            });
+
+            //vamos a sacar los pokemons de los species
+
+
+
+            for (let i = 0; i < species.length; i++) {
+                pokemons.push(await store.getPokemonByName(species[i]));
+            }
+
+            return pokemons;
 
         } catch (error: any) {
             throw error;
@@ -121,12 +159,18 @@ export function usePokemonStore() {
 
 
     return {
+        itemsPerPage,
+        totalPokemons,
+        currentPage,
         pokemon,
         pokemonList,
         myTeam,
         evolutions,
         setPokemon,
         setPokemonList,
+        setCurrentPage,
+        setTotalPokemons,
+        setItemsPerPage,
         addPokemonToTeam,
         removePokemonFromTeam,
         getPokemon,

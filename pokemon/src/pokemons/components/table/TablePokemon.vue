@@ -35,7 +35,18 @@
     </tbody>
   </table>
 
-  <div v-for="(pokemon, index) in myTeam" :key="index">
-    <p>{{ pokemon.name }}</p>
+  <div>
+    <button
+      @click="handlePageChange(currentPage - 1)"
+      :disabled="currentPage === 1"
+    >
+      Previous
+    </button>
+    <button
+      @click="handlePageChange(currentPage + 1)"
+      :disabled="currentPage * itemsPerPage >= totalPokemons"
+    >
+      Next
+    </button>
   </div>
 </template>

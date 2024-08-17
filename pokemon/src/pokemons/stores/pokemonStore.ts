@@ -12,6 +12,11 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
     const pokemonList = ref<PokemonList | null>(null);
     const myTeam = ref<Pokemon[]>([]);
     const evolutions = ref<Pokemon[]>([]);
+
+    const totalPokemons = ref<number>(0);
+    const currentPage = ref<number>(1);
+    const itemsPerPage = ref<number>(10);
+
     /**
      * @description: vamos a realizar los setters y getters de los pokemons.
      */
@@ -51,7 +56,17 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         }
     }
 
+    const setCurrentPage = (page: number) => {
+        currentPage.value = page;
+    }
 
+    const setTotalPokemons = (total: number) => {
+        totalPokemons.value = total;
+    }
+
+    const setItemsPerPage = (items: number) => {
+        itemsPerPage.value = items;
+    }
 
 
     /**
@@ -84,9 +99,9 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
      */
 
 
-    const getAllPokemons = async (): Promise<PokemonList> => {
+    const getAllPokemons = async (offset: number = 0, itemsPerPage: number = 2): Promise<PokemonList> => {
         try {
-            const resp = await pokemonAPI.get<PokemonList>('/pokemon?offset=0&limit=6');
+            const resp = await pokemonAPI.get<PokemonList>(`/pokemon?offset=${offset}&limit=${itemsPerPage}`);
             return resp.data;
         } catch (error: any) {
             throw error;
@@ -108,13 +123,30 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         }
     }
 
+
+    /**
+     * @description: El siguiente metodo se encarga de obtener la especie de un pokemon.
+     * @param id:number
+     * 
+     */
+
+    const getPokemonSpecies = async (id: number): Promise<string> => {
+        try {
+            const resp = await pokemonAPI.get<any>(`/pokemon-species/${id}`);
+            return resp.data.evolution_chain.url;
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
+
     /**
      * @description: El siguiente metodo se encarga de obtener las evoluciones de un pokemon.
      * @param id:number
      * @returns { Promise<Evolution> }
      */
 
-    const getEvolutions = async (id: number): Promise<Evolution> => {
+    const getEvolutions = async (id: string): Promise<Evolution> => {
         try {
             const resp = await pokemonAPI.get<Evolution>(`/evolution-chain/${id}`);
             return resp.data;
@@ -125,12 +157,18 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
 
 
 
+
+
+
     return {
         //state
+        currentPage,
+        totalPokemons,
         evolutions,
         pokemonList,
         pokemon,
         myTeam,
+        itemsPerPage,
         //getters
         getPokemon,
         getPokemonList,
@@ -140,10 +178,14 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         setPokemonList,
         addPokemonToTeam,
         removePokemonFromTeam,
+        setCurrentPage,
+        setTotalPokemons,
+        setItemsPerPage,
         //actions
         getAllPokemons,
         getPokemonByName,
-        getEvolutions
+        getEvolutions,
+        getPokemonSpecies
 
     }
 

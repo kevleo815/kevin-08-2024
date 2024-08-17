@@ -2,7 +2,7 @@
 <template>
   <div class="grid-container">
     <div class="grid-item" v-for="(member, index) in myTeam" :key="index">
-      {{ member.id }}
+     
       <CardViewVue
         :pokemon="member"
         @click="handleIndividualShow(member.id)"
