@@ -1,4 +1,4 @@
-import type { Pokemon, PokemonList } from "@/interfaces";
+import type { Evolution, Pokemon, PokemonList } from "@/interfaces";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { pokemonAPI } from "../apis";
@@ -11,7 +11,7 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
     const pokemon = ref<Pokemon | null>(null);
     const pokemonList = ref<PokemonList | null>(null);
     const myTeam = ref<Pokemon[]>([]);
-
+    const evolutions = ref<Pokemon[]>([]);
     /**
      * @description: vamos a realizar los setters y getters de los pokemons.
      */
@@ -33,6 +33,10 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
 
     function setPokemonList(pokemonData: PokemonList | null) {
         pokemonList.value = pokemonData;
+    }
+
+    const setEvolutions = (data: Pokemon[]) => {
+        evolutions.value = data
     }
 
 
@@ -104,15 +108,33 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         }
     }
 
+    /**
+     * @description: El siguiente metodo se encarga de obtener las evoluciones de un pokemon.
+     * @param id:number
+     * @returns { Promise<Evolution> }
+     */
+
+    const getEvolutions = async (id: number): Promise<Evolution> => {
+        try {
+            const resp = await pokemonAPI.get<Evolution>(`/evolution-chain/${id}`);
+            return resp.data;
+        } catch (error: any) {
+            throw error;
+        }
+    }
+
+
 
     return {
         //state
+        evolutions,
         pokemonList,
         pokemon,
         myTeam,
         //getters
         getPokemon,
         getPokemonList,
+        setEvolutions,
         //setters
         setPokemon,
         setPokemonList,
@@ -120,7 +142,8 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         removePokemonFromTeam,
         //actions
         getAllPokemons,
-        getPokemonByName
+        getPokemonByName,
+        getEvolutions
 
     }
 

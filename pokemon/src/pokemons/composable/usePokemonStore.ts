@@ -1,6 +1,6 @@
 import { computed } from "vue";
 import { pokemonStore } from "../stores/pokemonStore";
-import type { Pokemon, PokemonList } from "@/interfaces";
+import type { Chain, Evolution, Pokemon, PokemonList } from "@/interfaces";
 
 export function usePokemonStore() {
     const store = pokemonStore();
@@ -10,6 +10,7 @@ export function usePokemonStore() {
     const pokemon = computed(() => store.pokemon);
     const pokemonList = computed(() => store.pokemonList);
     const myTeam = computed(() => store.myTeam);
+    const evolutions = computed(() => store.evolutions);
     //--------------------setters--------------------//
 
     const setPokemon = (data: Pokemon | null) => {
@@ -77,16 +78,43 @@ export function usePokemonStore() {
             });
     };
 
+
     /**
-     * @description: funcion que se ejecuta cuando se selecciona 6 pokemones.
-     * @returns
+     * @description: Este metodo se encarga de consultar las evolucioes de un pokemon.
+     * @param id 
+     * @returns {Evolution[]}
+     * 
      */
 
-    const selectPokemon = (name: string) => {
+    const getEvolutions = async (id: number): Promise<void> => {
+        try {
+            let chain = (await store.getEvolutions(id)).chain;
+            store.setEvolutions([]);
 
-        
+            let count = 1;
+           /*  while (count > 0) {
 
+                if (chain.evolves_to.length > 0) {
+                    chain.evolves_to.forEach(async (item) => {
+                        const pokemon = await store.getPokemonByName(item.species.name);
+                        evolutions.value.push(pokemon);
+                        chain = item;
+                    });
+                } else {
+                    count = 0;
+
+                }
+
+            } */
+
+            /*  const pokemon = await store.getPokemonByName(resp.chain.species.name);
+            evolutions.value.push(pokemon); */
+
+        } catch (error: any) {
+            throw error;
+        }
     }
+
 
 
 
@@ -96,6 +124,7 @@ export function usePokemonStore() {
         pokemon,
         pokemonList,
         myTeam,
+        evolutions,
         setPokemon,
         setPokemonList,
         addPokemonToTeam,
@@ -103,7 +132,8 @@ export function usePokemonStore() {
         getPokemon,
         getPokemonList,
         getAllPokemons,
-        selectPokemon
+        getEvolutions,
+
     }
 
 }

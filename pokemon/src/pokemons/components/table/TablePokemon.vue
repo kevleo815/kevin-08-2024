@@ -11,28 +11,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(pokemon, index) in pokemonList?.results" :key="index">
+      <tr v-for="(item, index) in pokemonList?.results" :key="index">
         <td>{{ index + 1 }}</td>
         <td>
           <img
-            :src="pokemon.pokemon?.sprites.other.dream_world.front_default"
+            :src="item.pokemon?.sprites.other.dream_world.front_default"
             :style="{ maxWidth: '50px' }"
             alt="Pokemon Image"
           />
         </td>
-        <td>{{ pokemon.name.toUpperCase() }}</td>
+        <td>{{ item.name.toUpperCase() }}</td>
         <td>
           <input
             type="checkbox"
-            @change="handleSelectPokemon(pokemon.name)"
-            v-model="pokemon.selected"
+            @change="handleSelectPokemon(item)"
+            v-model="item.selected"
           />
         </td>
         <td>
-          <span v-if="pokemon.selected">Seleccionado</span>
+          <span v-if="item.selected">Seleccionado</span>
         </td>
       </tr>
     </tbody>
   </table>
-  {{ myTeam }}
+
+  <div v-for="(pokemon, index) in myTeam" :key="index">
+    <p>{{ pokemon.name }}</p>
+  </div>
 </template>

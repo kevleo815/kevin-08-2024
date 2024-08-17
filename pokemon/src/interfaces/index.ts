@@ -13,7 +13,13 @@ export interface MenuItem {
 export interface Pokemon {
     id: number;
     name: string;
-    types?: string[];
+    types?: {
+        slot: number;
+        type: {
+            name: string;
+            url: string;
+        }
+    }[];
     stats?: Stat[];
     cries?: Cries;
     height?: number;
@@ -27,20 +33,24 @@ export interface Pokemon {
         },
     },
 
+
 }
 
 export interface PokemonList {
     count: number;
     next: string;
     previous: string;
-    results: {
-        name: string;
-        url: string;
-        image?: string;
-        pokemon?: Pokemon;
-        selected?: boolean;
-    }[];
+    results: DetailListPokemon[];
 }
+
+export interface DetailListPokemon {
+    name: string;
+    url: string;
+    image?: string;
+    pokemon: Pokemon;
+    selected?: boolean;
+}
+
 
 
 
@@ -56,4 +66,19 @@ export interface Stat {
 export interface Cries {
     latest: string;
     legacy: string;
+}
+
+export interface Evolution {
+    id: number,
+    baby_trigger_item: any,
+    chain: Chain,
+}
+
+export interface Chain {
+    evolution_details: any,
+    evolves_to: Chain[],
+    species: {
+        name: string;
+        url: string;
+    }
 }
