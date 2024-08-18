@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const sharedStore = defineStore(('sharedStore'), () => {
+export const sharedStore = defineStore(('sharedStore'), () => { //nombre de la store
     //----------states----------//
 
     //------elementos de la plantilla ---------//
@@ -9,7 +9,7 @@ export const sharedStore = defineStore(('sharedStore'), () => {
     const textloading = ref<string>('');
     const title = ref<string>('Titulo por defecto');
     const subtitle = ref<string>('Subtitulo por defecto');
-
+    const icon = ref<string>('');
 
     //-----------setters---------------//
 
@@ -29,6 +29,10 @@ export const sharedStore = defineStore(('sharedStore'), () => {
         subtitle.value = text;
     };
 
+    const setIcon = (text: string) => {
+        icon.value = text;
+    };
+
 
 
     return {
@@ -36,10 +40,12 @@ export const sharedStore = defineStore(('sharedStore'), () => {
         textloading,
         title,
         subtitle,
+        icon,
         setLoading,
         setTextLoading,
         setTitle,
-        setSubtitle
+        setSubtitle,
+        setIcon
     };
 
 

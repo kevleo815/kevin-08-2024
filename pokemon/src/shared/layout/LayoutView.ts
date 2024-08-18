@@ -14,14 +14,14 @@ export default defineComponent({
     setup() {
 
         //-------vamos a invocar el composable function------//
-        const { title, subtitle } = useSharedStore();
+        const { title, subtitle, icon } = useSharedStore();
 
 
 
         //-------vamos a declarar los items del menu---------//
         const menuItems: MenuItem[] = [
-            { text: 'Lista', name: 'index' },
-            { text: 'Mi Equipo', name: 'team' },
+            { text: 'inicio', name: 'index', icon: 'home' },
+            { text: 'Equipo', name: 'team', icon: 'users' },
         ];
 
 
@@ -29,6 +29,7 @@ export default defineComponent({
             menuItems,
             title,
             subtitle,
+            icon,
         }
     }
 })

@@ -11,6 +11,7 @@ export function usePokemonStore() {
     const pokemonList = computed(() => store.pokemonList);
     const myTeam = computed(() => store.myTeam);
     const evolutions = computed(() => store.evolutions);
+    const individualDescription = computed(() => store.individualDescription);
 
     const totalPokemons = computed(() => store.totalPokemons);
     const currentPage = computed(() => store.currentPage);
@@ -32,6 +33,10 @@ export function usePokemonStore() {
 
     const removePokemonFromTeam = (pokemon: Pokemon) => {
         store.removePokemonFromTeam(pokemon);
+    };
+
+    const setIndividualDescription = (description: string) => {
+        store.setIndividualDescription(description);
     };
 
     //--------------------Getters--------------------//
@@ -108,8 +113,15 @@ export function usePokemonStore() {
 
     const getEvolutions = async (id: number): Promise<Pokemon[]> => {
         try {
+            setIndividualDescription('');
             let pokemons: Pokemon[] = [];
-            let urlEvolution = (await store.getPokemonSpecies(id));
+            let urlEvolution = (await store.getPokemonSpecies(id)).evolution_chain.url;
+            let descriptions = (await store.getPokemonSpecies(id)).flavor_text_entries;
+
+            //de descriptions vamos a buscar la descripcion en espa;ol es
+
+            let descriptionEs = descriptions.find((item: any) => item.language.name === 'es');
+            setIndividualDescription(descriptionEs.flavor_text);
 
             // de urlEvolution vamos a sacar el id de la cadena de evolucion
 
@@ -140,8 +152,6 @@ export function usePokemonStore() {
 
             //vamos a sacar los pokemons de los species
 
-
-
             for (let i = 0; i < species.length; i++) {
                 pokemons.push(await store.getPokemonByName(species[i]));
             }
@@ -159,6 +169,7 @@ export function usePokemonStore() {
 
 
     return {
+        individualDescription,
         itemsPerPage,
         totalPokemons,
         currentPage,
@@ -171,6 +182,7 @@ export function usePokemonStore() {
         setCurrentPage,
         setTotalPokemons,
         setItemsPerPage,
+        setIndividualDescription,
         addPokemonToTeam,
         removePokemonFromTeam,
         getPokemon,

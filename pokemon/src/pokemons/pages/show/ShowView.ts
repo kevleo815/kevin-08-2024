@@ -18,7 +18,7 @@ export default defineComponent({
         const route = useRoute();
         const router = useRouter();
         const { myTeam, getEvolutions, evolutions } = usePokemonStore();
-        const { setTitle, setSubtitle } = useSharedStore();
+        const { setTitle, setSubtitle, setIcon } = useSharedStore();
 
 
         //--vamos a obtener el uid de la url------//
@@ -33,16 +33,16 @@ export default defineComponent({
         //-----------eventos del ciclo de vida de la pagina---------//
         onMounted(async () => { // cuando la pagina se monte, vamos a setear el titulo y el subtitulo de la pagina.
 
-           
+
 
             if (!myTeam.value.some((pokemon) => pokemon.id === poekemonId)) {
                 router.push({ name: "index" }).catch(() => { });
             }
             pokemon.value = myTeam.value.find((pokemon) => pokemon.id === poekemonId) ?? null;
 
-            setTitle(`Detalle del Pokemón ${pokemon.value?.name.toUpperCase()}`);
-            setSubtitle("En esta sección puedes ver el detalle del pokemón seleccionado");
-
+            setTitle(`Información del Pokemón ${pokemon.value?.name.toUpperCase()}`);
+            setSubtitle("En esta sección puedes ver el detalle del pokemón seleccionado, en la parte inferior se muestra las evoluciones del pokemón seleccionado.");
+            setIcon("user");
 
             if (poekemonId !== null) {
                 pokemonEvolutions.value = await getEvolutions(poekemonId);
@@ -56,7 +56,8 @@ export default defineComponent({
         return {
             pokemon,
             pokemonEvolutions,
-            evolutions
+            evolutions,
+
         }
     },
 })

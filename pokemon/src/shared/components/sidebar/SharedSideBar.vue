@@ -6,9 +6,11 @@
     <ul class="menu">
       <li class="menu-item" v-for="item in menuItems" :key="item.text">
         <div class="divider"></div>
-        <router-link class="text-option" :to="{ name: item.name }">{{
-          item.text
-        }}</router-link>
+
+        <router-link class="text-option" :to="{ name: item.name }">
+          <font-awesome-icon :icon="['fas', `${item.icon}`]" />
+          {{ item.text }}</router-link
+        >
       </li>
     </ul>
   </div>
@@ -16,7 +18,7 @@
 
 <style scoped>
 .sidebar {
-  width: 100px;
+  width: 120px;
   /* background-color: #145ab6; */
   height: 100%;
   position: fixed;

@@ -1,1 +1,1 @@
-export { default as pokemonAPI } from './pokemonAPI';
+export { default as pokemonAPI } from './pokemonAPI'; //importamos la instancia de axios

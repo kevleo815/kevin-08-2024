@@ -12,6 +12,7 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
     const pokemonList = ref<PokemonList | null>(null);
     const myTeam = ref<Pokemon[]>([]);
     const evolutions = ref<Pokemon[]>([]);
+    const individualDescription = ref<string>('');
 
     const totalPokemons = ref<number>(0);
     const currentPage = ref<number>(1);
@@ -40,14 +41,43 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         pokemonList.value = pokemonData;
     }
 
+    /**
+     * @description: Este metodo se encarga de obtener las evoluciones de un pokemon.
+     * @param data
+     * @returns
+     * 
+     * */
+
     const setEvolutions = (data: Pokemon[]) => {
         evolutions.value = data
     }
 
+    /**
+     * @description: Este metodo se encarga de obtener la descripcion de un pokemon.
+     * @returns
+     * 
+     * */
+
+    const setIndividualDescription = (description: string) => {
+        individualDescription.value = description;
+    }
+
+
+    /**
+     * @description: Este metodo se encarga de agregar un pokemon al equipo.
+     * @param pokemon
+     * 
+     */
 
     const addPokemonToTeam = (pokemon: Pokemon) => {
         myTeam.value.push(pokemon);
     }
+
+    /**
+     * @description: Este metodo se encarga de remover un pokemon del equipo.
+     * @param pokemon
+     * 
+     */
 
     const removePokemonFromTeam = (pokemon: Pokemon) => {
         const index = myTeam.value.findIndex((poke) => poke.id === pokemon.id);
@@ -56,13 +86,28 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         }
     }
 
+    /**
+     * @description: Este metodo se encarga de setear la pagina actual.
+     * @param page
+     **/
+
     const setCurrentPage = (page: number) => {
         currentPage.value = page;
     }
 
+    /**
+     * @description: Este metodo se encarga de setear el total de pokemons.
+     * @param total
+     */
+
     const setTotalPokemons = (total: number) => {
         totalPokemons.value = total;
     }
+
+    /**
+     * @description: Este metodo se encarga de setear la cantidad de pokemons por pagina.
+     * @param items
+     */
 
     const setItemsPerPage = (items: number) => {
         itemsPerPage.value = items;
@@ -130,10 +175,10 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
      * 
      */
 
-    const getPokemonSpecies = async (id: number): Promise<string> => {
+    const getPokemonSpecies = async (id: number): Promise<any> => {
         try {
             const resp = await pokemonAPI.get<any>(`/pokemon-species/${id}`);
-            return resp.data.evolution_chain.url;
+            return resp.data;
         } catch (error: any) {
             throw error;
         }
@@ -168,6 +213,7 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         pokemonList,
         pokemon,
         myTeam,
+        individualDescription,
         itemsPerPage,
         //getters
         getPokemon,
@@ -181,6 +227,7 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
         setCurrentPage,
         setTotalPokemons,
         setItemsPerPage,
+        setIndividualDescription,
         //actions
         getAllPokemons,
         getPokemonByName,

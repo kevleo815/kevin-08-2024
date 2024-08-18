@@ -7,6 +7,7 @@ export interface MenuItem {
     text: string;
     link?: string;
     name?: string;
+    icon?: string;
 }
 
 

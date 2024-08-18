@@ -12,7 +12,7 @@ export default defineComponent({
 
         //---------invocamos los composables functions---------//
         const { pokemonList, getAllPokemons, itemsPerPage, currentPage } = usePokemonStore();
-        const { setSubtitle, setTitle } = useSharedStore();
+        const { setSubtitle, setTitle, setIcon } = useSharedStore();
 
 
         //-----------eventos del ciclo de vida de la pagina---------//
@@ -23,6 +23,7 @@ export default defineComponent({
             //---------seteamos el titulo y el subtitulo de la pagina---------//
             setTitle('Lista de Pokemones');
             setSubtitle('Lista de los pokemones disponibles para capturar y agregar a tu equipo (máximo 6 pokemones).');
+            setIcon('list');
 
             if (pokemonList.value === null) // si la lista de pokemons es nula, entonces vamos a obtener los pokemons.
                 await getAllPokemons(currentPage.value, itemsPerPage.value); // obtenemos los pokemons.
@@ -33,6 +34,7 @@ export default defineComponent({
         onUnmounted(() => { // cuando la pagina se desmonte, vamos a setear el titulo y el subtitulo a vacio.
             setTitle('');
             setSubtitle('');
+            setIcon('');
         });
 
 

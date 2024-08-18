@@ -28,9 +28,21 @@ const router = createRouter({
           name: 'show-pokemon',
           component: () => import('@/pokemons/pages/show/ShowView.vue')
 
-        }
+        },
+
       ],
     },
+
+    // Esto se encarga de redirigir a la pagina de inicio si la ruta no existe.
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: { name: 'home' },
+    },
+
+
+
+
+
 
   ]
 })

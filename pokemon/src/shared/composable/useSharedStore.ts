@@ -10,7 +10,7 @@ export function useSharedStore() {
     const textloading = computed(() => store.textloading);
     const title = computed(() => store.title);
     const subtitle = computed(() => store.subtitle);
-
+    const icon = computed(() => store.icon);
     //--------------------setters--------------------//
 
     const setLoading = (load: boolean) => {
@@ -29,14 +29,20 @@ export function useSharedStore() {
         store.setSubtitle(text);
     };
 
+    const setIcon = (text: string) => {
+        store.setIcon(text);
+    };
+
     return {
         loading,
         textloading,
         title,
         subtitle,
+        icon,
         setLoading,
         setTextLoading,
         setTitle,
-        setSubtitle
+        setSubtitle,
+        setIcon
     };
 }

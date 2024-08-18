@@ -11,39 +11,81 @@
         <div class="divider"></div>
       </Column>
       <Column class="element" :span="12" :md="12" :sm="12">
-        <h3>Datos</h3>
+        <h3 class="text">Datos</h3>
         <div class="divider"></div>
       </Column>
       <Column class="element" :span="6" :md="12" :sm="12">
-        <h4>Nombre:</h4>
+        <h4 class="text">Nombre:</h4>
       </Column>
       <Column class="element" :span="6" :md="12" :sm="12">
-        <p>{{ pokemon.name.toUpperCase() }}</p>
+        <p class="text">{{ pokemon.name.toUpperCase() }}</p>
+      </Column>
+      <Column
+        v-if="showAllInformation"
+        class="element"
+        :span="6"
+        :md="12"
+        :sm="12"
+      >
+        <h4 class="text">Descripción:</h4>
+      </Column>
+      <Column
+        v-if="showAllInformation"
+        class="element"
+        :span="6"
+        :md="12"
+        :sm="12"
+      >
+        <p class="text">{{ individualDescription.toUpperCase() }}</p>
+      </Column>
+      <Column
+        v-if="showAllInformation"
+        class="element"
+        :span="6"
+        :md="12"
+        :sm="12"
+      >
+        <h4 class="text">Altura:</h4>
+      </Column>
+      <Column
+        v-if="showAllInformation"
+        class="element"
+        :span="6"
+        :md="12"
+        :sm="12"
+      >
+        <p class="text">{{ pokemon.height }} unds.</p>
+      </Column>
+      <Column
+        v-if="showAllInformation"
+        class="element"
+        :span="6"
+        :md="12"
+        :sm="12"
+      >
+        <h4 class="text">Peso:</h4>
+      </Column>
+      <Column
+        v-if="showAllInformation"
+        class="element"
+        :span="6"
+        :md="12"
+        :sm="12"
+      >
+        <p class="text">{{ pokemon.weight }} unds.</p>
       </Column>
       <Column class="element" :span="6" :md="12" :sm="12">
-        <h4>Altura:</h4>
+        <h4 class="text">Tipo:</h4>
       </Column>
       <Column class="element" :span="6" :md="12" :sm="12">
-        <p>{{ pokemon.height }} unds.</p>
-      </Column>
-      <Column class="element" :span="6" :md="12" :sm="12">
-        <h4>Peso:</h4>
-      </Column>
-      <Column class="element" :span="6" :md="12" :sm="12">
-        <p>{{ pokemon.weight }} unds.</p>
-      </Column>
-      <Column class="element" :span="6" :md="12" :sm="12">
-        <h4>Tipo:</h4>
-      </Column>
-      <Column class="element" :span="6" :md="12" :sm="12">
-        <div v-for="(type, indexTypes) in pokemon.types" :key="indexTypes">
+        <div class="text" v-for="(type, indexTypes) in pokemon.types" :key="indexTypes">
           -{{ type.type.name.toUpperCase() }}
         </div>
       </Column>
 
       <Column class="element" :span="12" :md="12" :sm="12">
         <div class="divider"></div>
-        <h3>Sonidos</h3>
+        <h3 class="text">Sonidos</h3>
         <div class="divider"></div>
       </Column>
       <Column class="element" :span="12" :md="12" :sm="12">
@@ -59,7 +101,7 @@
 
       <Column class="element" :span="12" :md="12" :sm="12">
         <div class="divider"></div>
-        <h3>Estádisticas</h3>
+        <h3 class="text">Estádisticas</h3>
         <div class="divider"></div>
       </Column>
       <Column class="element" :span="12" :md="12" :sm="12">
@@ -100,5 +142,10 @@ h4 {
 .divider {
   border-bottom: 1px solid #ccc;
   margin: 1px 0;
+}
+
+.text {
+  font-family: "Helvetica", sans-serif;
+  font-weight: 400;
 }
 </style>

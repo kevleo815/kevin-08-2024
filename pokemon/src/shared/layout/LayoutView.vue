@@ -2,9 +2,8 @@
 <template>
   <div class="layout rounded-md">
     <div class="system-bar">
-      <div class="system-name title">Sistema Pokédex</div>
-      <div class="system-icon">
-        <i class="fas fa-icon"></i>
+      <div class="system-name title">
+        <font-awesome-icon :icon="['fas', 'list']" /> Sistema Pokédex
       </div>
     </div>
     <div class="navigation-drawer">
@@ -12,12 +11,14 @@
     </div>
 
     <div class="app-bar bottom">
-      <div class="text-footer">© 2024 - Todos los derechos reservados</div>
+      <div class="text-footer">Autor: Kevin Leonardo Pauta Ramón -© 2024</div>
     </div>
 
     <div class="main">
       <div class="header">
-        <h2 class="title">{{ title }}</h2>
+        <h2 class="title">
+          <font-awesome-icon :icon="['fas', `${icon}`]" /> {{ title }}
+        </h2>
 
         <h3 class="subtitle">{{ subtitle }}</h3>
         <hr class="divider" />
@@ -45,14 +46,16 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: aliceblue;
 }
 .system-bar {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #145ab6;
+  background-color: #003077;
   height: 50px;
   right: 0px;
+
   /*display: flex;
   align-items: center;
   justify-content: center;
@@ -64,11 +67,12 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   padding: 10px;
+  
 }
 
 .navigation-drawer {
-  width: 100px;
-  background-color: #145ab6;
+  width: 120px;
+  background-color: #003077;
   height: 100%;
   position: fixed;
   top: 50px;
@@ -79,11 +83,12 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #145ab6;
+  background-color: #003077;
   align-items: end;
   justify-content: end;
   display: flex;
   right: 1px;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .text-footer {
@@ -99,8 +104,8 @@ body {
   min-height: 300px;
   margin-top: 100px;
   margin-bottom: 48px;
-  margin-left: 125px;
-  margin-right: 100px;
+  margin-left: 130px;
+  margin-right: 30px;
   background-color: rgb(255, 255, 255);
   overflow: auto; /* Añadir overflow para permitir el scroll */
   border: 1px solid rgba(0, 0, 0, 0.1); /* Borde suave */
@@ -140,13 +145,6 @@ body {
 }
 
 .system-name {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 10px;
-}
-
-.system-icon {
   color: white;
   font-size: 1.5rem;
   font-weight: 700;

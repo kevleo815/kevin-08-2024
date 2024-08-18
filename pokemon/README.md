@@ -1,33 +1,45 @@
-# pokemon
+## Pasos para instalar el proyecto. 
+Ingresamos al directorio del proyecto.
+npm install.
+npm run dev. 
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descripción
 
-## Recommended IDE Setup
+El proyecto se basa en la comunicación con el API pokeAPI.co
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Explicación de la arquitectura del proyecto.
 
-## Type Support for `.vue` Imports in TS
+Se aplica la forma modular el cual consiste en que cada modulo tenga sus propias subcarpetas
+-apis
+-components
+-composable
+-pages
+-stores
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+por lo cual existen dos modulos dentro del proyecto 
 
-## Customize configuration
+-pokemons
+-shared
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+-Carpeta Pokemons
+    Dentro de la carpeta pokemons tenemos los elementos necesarios para contruir la pagina en las rutas:
 
-## Project Setup
+    /
+    /team
+    /team/:id
 
-```sh
-npm install
-```
+    Se utiliza Pinia como gestor de Estado para compartir información entre elementos
 
-### Compile and Hot-Reload for Development
 
-```sh
-npm run dev
-```
+-Carpeta Shared
+    Dentro de esta carpeta tenemos componentes que utiliza el modulo pokemons es decir, 
+    esta carpeta tiene todo los elementos que pueden usar diferentes modulos, si se aplica 
+    otro modulo al proyecto, puede utilizar todos los componentes de la carpeta shared.
 
-### Type-Check, Compile and Minify for Production
+    Aquí tambíen se encuentra el layout, el cual es una plantilla para darle forma al contenido 
 
-```sh
-npm run build
-```
+    Dentro de la carpeta src se encuentra la carpeta interface.
+    Está carpeta lo que realiza es el entender de como esta formado cada uno de los objetos
+    que se utilizan con typescript.
+
+

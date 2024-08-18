@@ -16,7 +16,7 @@ export default defineComponent({
 
         //---------invocamos los composables functions---------//
         const { myTeam, pokemonList } = usePokemonStore();
-        const { setTitle, setSubtitle } = useSharedStore();
+        const { setTitle, setSubtitle, setIcon } = useSharedStore();
         const router = useRouter();
 
 
@@ -44,12 +44,14 @@ export default defineComponent({
 
         onMounted(() => { // cuando la pagina se monte, vamos a setear el titulo y el subtitulo de la pagina.   
             setTitle('Tú Equipo Pokemón');
-            setSubtitle('En esta sección puedes ver tu equipo de pokemones seleccionados, puedes desvincular del equipo si lo deseas.');
+            setSubtitle('En esta sección puedes ver tu equipo de pokemones seleccionados, puedes desvincular del equipo si lo deseas. Para ver más detalles de un pokemón, haz clic en la tarjeta.');
+            setIcon('users');
         });
 
         onUnmounted(() => { // cuando la pagina se desmonte, vamos a setear el titulo y el subtitulo a vacio.   
             setTitle('');
             setSubtitle('');
+            setIcon('');
         });
 
         return {
