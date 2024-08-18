@@ -1,27 +1,24 @@
 <script src="./LayoutView.ts" lang="ts" />
 <template>
   <div class="layout rounded-md">
-    <div class="system-bar grey-darken-3"></div>
-    <div class="navigation-drawer grey-darken-2">
+    <div class="system-bar">
+      <div class="system-name title">Sistema Pokédex</div>
+      <div class="system-icon">
+        <i class="fas fa-icon"></i>
+      </div>
+    </div>
+    <div class="navigation-drawer">
       <SharedSideBar :menuItems="menuItems" />
     </div>
-    <!--  <div class="navigation-drawer wide grey-darken-1"></div> -->
-    <!--   <div class="app-bar grey"></div> -->
-    <!--  <div class="navigation-drawer right grey-lighten-1"></div> -->
-    <!--   <div class="app-bar bottom grey-lighten-2"></div> -->
-    <!--  <div style="background-color: aqua" class="main">
-      <div class="header" style="width: 100%">
-        <h1 class="title">Title</h1>
-      </div>
-      <div>
-        <router-view></router-view>
-      </div>
-    </div> -->
+
+    <div class="app-bar bottom">
+      <div class="text-footer">© 2024 - Todos los derechos reservados</div>
+    </div>
 
     <div class="main">
       <div class="header">
         <h2 class="title">{{ title }}</h2>
-    
+
         <h3 class="subtitle">{{ subtitle }}</h3>
         <hr class="divider" />
       </div>
@@ -43,65 +40,67 @@ body {
 .grey-darken-3 {
   background-color: #424242;
 }
-.grey-darken-2 {
-  background-color: #616161;
-}
-.grey-darken-1 {
-  background-color: #757575;
-}
-.grey {
-  background-color: #9e9e9e;
-}
-.grey-lighten-1 {
-  background-color: #bdbdbd;
-}
-.grey-lighten-2 {
-  background-color: #e0e0e0;
-}
+
 .layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-.system-bar,
-.app-bar {
-  height: 48px;
-  display: flex;
+.system-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #145ab6;
+  height: 50px;
+  right: 0px;
+  /*display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #145ab6; */
 }
+
+.system-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 10px;
+}
+
 .navigation-drawer {
-  width: 72px;
-  background-color: #616161;
+  width: 100px;
+  background-color: #145ab6;
   height: 100%;
   position: fixed;
-  top: 48px;
+  top: 50px;
   left: 0;
 }
-.navigation-drawer.right {
-  left: auto;
-  right: 0;
-  width: 150px;
-  background-color: #bdbdbd;
-}
-.navigation-drawer.wide {
-  width: 150px;
-  background-color: #757575;
-  left: 72px;
-}
+
 .app-bar.bottom {
   position: fixed;
   bottom: 0;
   width: 100%;
+  background-color: #145ab6;
+  align-items: end;
+  justify-content: end;
+  display: flex;
+  right: 1px;
 }
+
+.text-footer {
+  color: white;
+  font-size: 0.5 rem;
+  font-weight: 200;
+  padding: 5px;
+}
+
 .main {
   display: flex;
   flex-direction: column;
   min-height: 300px;
-  margin-top: 48px;
+  margin-top: 100px;
   margin-bottom: 48px;
-  margin-left: 222px;
-  margin-right: 150px;
+  margin-left: 125px;
+  margin-right: 100px;
   background-color: rgb(255, 255, 255);
   overflow: auto; /* Añadir overflow para permitir el scroll */
   border: 1px solid rgba(0, 0, 0, 0.1); /* Borde suave */
@@ -140,12 +139,22 @@ body {
   margin: 10px 0; /* Espaciado entre el título y el subtítulo */
 }
 
-/* Responsive adjustments */
+.system-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.system-icon {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 10px;
+}
+
+/* ajustes responsive */
 @media (max-width: 1200px) {
-  .navigation-drawer.wide {
-    left: 72px;
-    width: 100px;
-  }
   .main {
     margin-left: 172px;
   }
@@ -158,10 +167,7 @@ body {
   .navigation-drawer {
     width: 60px;
   }
-  .navigation-drawer.wide {
-    left: 60px;
-    width: 100px;
-  }
+
   .main {
     margin-left: 160px;
   }
@@ -169,14 +175,14 @@ body {
 
 @media (max-width: 768px) {
   .navigation-drawer {
-    width: 50px;
+    width: 100%;
+    height: 200%;
+    position: relative;
   }
-  .navigation-drawer.wide {
-    left: 50px;
-    width: 80px;
-  }
+
   .main {
-    margin-left: 130px;
+    margin-left: 0px;
+    width: 100%;
   }
   .header {
     height: 10%;
@@ -184,13 +190,6 @@ body {
 }
 
 @media (max-width: 400px) {
-  .navigation-drawer,
-  .navigation-drawer.wide,
-  .navigation-drawer.right {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
   .main {
     margin: 0;
     margin-top: 40%;

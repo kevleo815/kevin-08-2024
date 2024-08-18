@@ -1,9 +1,14 @@
 <script src="./SharedSideBar.ts" lang="ts" />
 <template>
   <div class="sidebar">
+    <!-- ----vamos a agregar un titulo -->
+
     <ul class="menu">
       <li class="menu-item" v-for="item in menuItems" :key="item.text">
-        <router-link :to="{ name: item.name }">{{ item.text }}</router-link>
+        <div class="divider"></div>
+        <router-link class="text-option" :to="{ name: item.name }">{{
+          item.text
+        }}</router-link>
       </li>
     </ul>
   </div>
@@ -11,16 +16,16 @@
 
 <style scoped>
 .sidebar {
-  width: 72px;
-  background-color: #145ab6;
+  width: 100px;
+  /* background-color: #145ab6; */
   height: 100%;
   position: fixed;
   top: 48px;
   left: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
+  justify-content: start;
 }
 
 .menu {
@@ -32,7 +37,7 @@
 
 .menu-item {
   width: 100%;
-  text-align: center;
+  text-align: start;
   margin: 10px 0;
 }
 
@@ -45,14 +50,24 @@
 }
 
 .menu-item a:hover {
-  background-color: #757575;
+  background-color: #73c0ffd8;
   color: #ffffff;
 }
 
-@media (max-width: 576px) {
+.divider {
+  margin: 0px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.text-option {
+  font-family: "Helvetica", sans-serif;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
   .sidebar {
     width: 100%;
-    height: auto;
+    height: 100%;
     position: relative;
   }
 }

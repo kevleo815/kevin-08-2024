@@ -20,8 +20,8 @@ export default defineComponent({
 
         //-------vamos a declarar los items del menu---------//
         const menuItems: MenuItem[] = [
-            { text: 'Incio', name: 'index' },
-            { text: 'Equipo', name: 'team' },
+            { text: 'Lista', name: 'index' },
+            { text: 'Mi Equipo', name: 'team' },
         ];
 
 

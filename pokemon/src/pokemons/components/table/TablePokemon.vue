@@ -19,7 +19,7 @@
           />
         </Column>
         <Column :span="6" :md="12" :sm="12">
-          <p>{{ item.name.toUpperCase() }}</p>
+          <p class="name-pokemon">{{ item.name.toUpperCase() }}</p>
           <div v-if="item.selected" class="check">
             <span>✔</span>
           </div>
@@ -139,5 +139,11 @@
 .divider {
   margin: 20px 0;
   border-bottom: 1px solid #ccc;
+}
+.name-pokemon {
+  font-size: 1.1rem;
+  color: #000000;
+  font-family: "Helvetica", sans-serif;
+  font-weight: 400;
 }
 </style>

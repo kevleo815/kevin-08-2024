@@ -44,7 +44,7 @@ export default defineComponent({
 
         onMounted(() => { // cuando la pagina se monte, vamos a setear el titulo y el subtitulo de la pagina.   
             setTitle('Tú Equipo Pokemón');
-            setSubtitle('En esta sección puedes ver tu equipo pokemoón');
+            setSubtitle('En esta sección puedes ver tu equipo de pokemones seleccionados, puedes desvincular del equipo si lo deseas.');
         });
 
         onUnmounted(() => { // cuando la pagina se desmonte, vamos a setear el titulo y el subtitulo a vacio.   

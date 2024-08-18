@@ -17,19 +17,19 @@ export default defineComponent({
 
         //-----------eventos del ciclo de vida de la pagina---------//
 
-   
-        onMounted(async () => { 
+
+        onMounted(async () => {
 
             //---------seteamos el titulo y el subtitulo de la pagina---------//
-            setTitle('Lista de Pokemons'); 
-            setSubtitle('Lista de los pokemons disponibles');
+            setTitle('Lista de Pokemones');
+            setSubtitle('Lista de los pokemones disponibles para capturar y agregar a tu equipo (máximo 6 pokemones).');
 
             if (pokemonList.value === null) // si la lista de pokemons es nula, entonces vamos a obtener los pokemons.
                 await getAllPokemons(currentPage.value, itemsPerPage.value); // obtenemos los pokemons.
         })
 
 
-        
+
         onUnmounted(() => { // cuando la pagina se desmonte, vamos a setear el titulo y el subtitulo a vacio.
             setTitle('');
             setSubtitle('');
