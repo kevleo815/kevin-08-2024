@@ -1,6 +1,11 @@
 import type { Pokemon } from "@/interfaces";
 import { defineComponent, onMounted, ref, toRefs } from "vue";
 import DiagramBarVue from "../diagramBar/DiagramBar.vue";
+import Row from "@/shared/components/row/Row.vue";
+import Column from "@/shared/components/column/Column.vue";
+
+
+
 
 export default defineComponent({
     name: 'CardView',
@@ -11,7 +16,7 @@ export default defineComponent({
         }
     },
     components: {
-        DiagramBarVue
+        DiagramBarVue, Row, Column
     },
     setup(props) {
 

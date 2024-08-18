@@ -1,8 +1,15 @@
-import { defineComponent, toRefs } from "vue";
+import { defineComponent } from "vue";
+import Row from "@/shared/components/row/Row.vue";
+import Column from "@/shared/components/column/Column.vue";
+
+
+
 
 export default defineComponent({
     name: 'DiagramBar',
-
+    components: {
+        Row, Column
+    },
     props: {
         diagramData: {
             type: Array as () => Array<{ name: string, value: number }>,

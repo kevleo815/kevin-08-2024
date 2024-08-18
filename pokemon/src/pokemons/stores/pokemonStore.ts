@@ -15,7 +15,7 @@ export const pokemonStore = defineStore(('pokemonStore'), () => {
 
     const totalPokemons = ref<number>(0);
     const currentPage = ref<number>(1);
-    const itemsPerPage = ref<number>(10);
+    const itemsPerPage = ref<number>(25);
 
     /**
      * @description: vamos a realizar los setters y getters de los pokemons.
